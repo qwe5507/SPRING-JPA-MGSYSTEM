@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MockMvcBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,8 +28,14 @@ class HelloWordControllerTest  {
         assertThat(helloWordController.helloWorld()).isEqualTo("Hello World");
     }
     @Test
-    void mockMvcTest(){
-//        mockMvc = MockMvcBuilders.standaloneSetup(HelloWordController).build();
+    void mockMvcTest() throws Exception {
+        mockMvc = MockMvcBuilders.standaloneSetup(helloWordController).build();
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/api/helloworld")
+        ).andDo(MockMvcResultHandlers.print())
+        .andExpect(MockMvcResultMatchers.status().isOk())
+        .andExpect(MockMvcResultMatchers.content().string("Hello World"));
     }
 
 }
