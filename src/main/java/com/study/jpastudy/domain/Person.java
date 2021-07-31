@@ -26,7 +26,8 @@ public class Person {
     private String job;
     @ToString.Exclude
     private String phoneNumber;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
+    @ToString.Exclude
     private Block block;
 
 }
