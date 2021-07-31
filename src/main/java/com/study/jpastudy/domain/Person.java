@@ -9,12 +9,10 @@ import javax.persistence.Id;
 import java.time.LocalDate;
 
 @Entity
-@ToString
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
+@Data
 public class Person {
     @Id
     @GeneratedValue
