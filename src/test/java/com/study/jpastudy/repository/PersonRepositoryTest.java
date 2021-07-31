@@ -32,4 +32,15 @@ class PersonRepositoryTest {
 
         System.out.println(personRepository.findAll());
     }
+    @Test
+    void constructorTest(){
+        Person person = new Person("이진현",28);
+    }
+    @Test
+    void hashCodeAndEquals(){
+        Person person1 = new Person("이진강",28);
+        Person person2 = new Person("이진소프트",29);
+
+        System.out.println(person1.equals(person2));
+    }
 }
