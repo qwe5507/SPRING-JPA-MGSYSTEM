@@ -2,10 +2,7 @@ package com.study.jpastudy.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -22,12 +19,14 @@ public class Person {
     @NonNull
     private int age;
     private String hobby;
+    @NonNull
     private String bloodType;
     private String address;
     private LocalDate birthday;
     private String job;
     @ToString.Exclude
     private String phoneNumber;
-    private boolean block;
+    @OneToOne
+    private Block block;
 
 }

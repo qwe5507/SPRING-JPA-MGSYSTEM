@@ -36,12 +36,12 @@ class PersonRepositoryTest {
     }
     @Test
     void constructorTest(){
-        Person person = new Person("이진현",28);
+        Person person = new Person("이진현",28,"A");
     }
     @Test
     void hashCodeAndEquals(){
-        Person person1 = new Person("이진강",28);
-        Person person2 = new Person("이진강",28);
+        Person person1 = new Person("이진강",28,"A");
+        Person person2 = new Person("이진강",28,"A");
 
         System.out.println(person1.equals(person2));
         System.out.println(person1.hashCode());

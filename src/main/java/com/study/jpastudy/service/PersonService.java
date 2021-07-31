@@ -14,15 +14,13 @@ import java.util.stream.Collectors;
 public class PersonService {
     @Autowired
     PersonRepository personRepository;
-    @Autowired
-    BlockRepository blockRepository;
 
     public List<Person> getPeopleExcludeBlocks(){
         List<Person> people = personRepository.findAll();
-        List<Block> blocks = blockRepository.findAll();
-        List<String> blockName = blocks.stream().map(Block::getName).collect(Collectors.toList());
+//        List<Block> blocks = blockRepository.findAll();
+//        List<String> blockName = blocks.stream().map(Block::getName).collect(Collectors.toList());
 
-        return people.stream().filter(person -> !(blockName.contains(person.getName())  )).collect(Collectors.toList());
+        return people.stream().filter(person -> person.getBlock() == null  ).collect(Collectors.toList());
 
     }
 }
