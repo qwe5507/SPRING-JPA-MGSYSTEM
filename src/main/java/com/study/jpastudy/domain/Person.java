@@ -28,5 +28,6 @@ public class Person {
     private String job;
     @ToString.Exclude
     private String phoneNumber;
+    private boolean block;
 
 }
