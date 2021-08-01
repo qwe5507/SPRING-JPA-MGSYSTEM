@@ -21,8 +21,8 @@ class PersonRepositoryTest {
     @Test
     void crud(){
         Person person = new Person();
-        person.setAge(28);
-        person.setName("이진소프트");
+        person.setAge(10);
+        person.setName("martin");
         person.setBloodType("A");
 
         personRepository.save(person);
@@ -30,8 +30,8 @@ class PersonRepositoryTest {
         List<Person> personList = personRepository.findAll();
 
         assertThat(personList.size()).isEqualTo(1);
-        assertThat(personList.get(0).getName()).isEqualTo("이진소프트");
-        assertThat(personList.get(0).getAge()).isEqualTo(28);
+        assertThat(personList.get(0).getName()).isEqualTo("martin");
+        assertThat(personList.get(0).getAge()).isEqualTo(10);
         assertThat(personList.get(0).getBloodType()).isEqualTo("A");
 
         System.out.println(personRepository.findAll());
