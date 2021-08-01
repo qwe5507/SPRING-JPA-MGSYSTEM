@@ -1,8 +1,10 @@
 package com.study.jpastudy.domain;
 
+import com.study.jpastudy.domain.dto.Birthday;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.time.LocalDate;
 
 @Entity
@@ -22,7 +24,9 @@ public class Person {
     @NonNull
     private String bloodType;
     private String address;
-    private LocalDate birthday;
+    @Valid
+    @Embedded
+    private Birthday birthday;
     private String job;
     @ToString.Exclude
     private String phoneNumber;
