@@ -36,6 +36,6 @@ public class PersonService {
 //
 //        return people.stream().filter(person -> person.getName().equals(name)).collect(Collectors.toList());
 
-        return personRepository.findByName(name);
+        return personRepository.findByNamesa(name);
     }
 }

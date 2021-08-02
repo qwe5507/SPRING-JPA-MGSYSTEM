@@ -14,10 +14,10 @@ import java.time.LocalDate;
 @Data
 public class Person {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NonNull
-    private String name;
+    private String namesa;
     @NonNull
     private int age;
     private String hobby;

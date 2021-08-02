@@ -1,1 +1,1 @@
-insert into PERSON('id','name','age','blood_type') values(1,'martin',10,'A')
+insert into person(id,namesa,age,blood_type) values(1,'martin',10,'A')

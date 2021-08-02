@@ -22,17 +22,17 @@ class PersonRepositoryTest {
     void crud(){
         Person person = new Person();
         person.setAge(10);
-        person.setName("martin");
+        person.setNamesa("john");
         person.setBloodType("A");
 
         personRepository.save(person);
 
-        List<Person> personList = personRepository.findAll();
+        List<Person> people = personRepository.findByNamesa("martin");
 
-        assertThat(personList.size()).isEqualTo(1);
-        assertThat(personList.get(0).getName()).isEqualTo("martin");
-        assertThat(personList.get(0).getAge()).isEqualTo(10);
-        assertThat(personList.get(0).getBloodType()).isEqualTo("A");
+        assertThat(people.size()).isEqualTo(1);
+        assertThat(people.get(0).getNamesa()).isEqualTo("martin");
+        assertThat(people.get(0).getAge()).isEqualTo(10);
+        assertThat(people.get(0).getBloodType()).isEqualTo("A");
 
         System.out.println(personRepository.findAll());
     }
