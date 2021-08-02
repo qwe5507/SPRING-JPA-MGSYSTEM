@@ -1,9 +1,9 @@
-#spring:
-#  h2:
-#    console:
-#      enabled: true
-#  jpa:
-#    show-sql: true
+spring:
+  h2:
+    console:
+      enabled: true
+  jpa:
+    show-sql: true
 #    defer-datasource-initialization: true
 #    database-platform: org.hibernate.dialect.H2Dialect
 #    hibernate:
