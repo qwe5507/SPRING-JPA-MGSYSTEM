@@ -38,4 +38,8 @@ public class PersonService {
 
         return personRepository.findByNamesa(name);
     }
+    @Transactional
+    public void put(Person person){
+        personRepository.save(person);
+    }
 }
