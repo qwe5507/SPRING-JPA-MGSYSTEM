@@ -1,5 +1,7 @@
 package com.study.jpastudy.domain;
 
+import antlr.StringUtils;
+import com.study.jpastudy.controller.dto.PersonDto;
 import com.study.jpastudy.domain.dto.Birthday;
 import lombok.*;
 
@@ -42,4 +44,24 @@ public class Person {
     @ToString.Exclude
     private Block block;
 
+    public void set(PersonDto personDto){
+        if(personDto.getAge() != 0){
+            this.setAge(personDto.getAge());
+        }
+        if(personDto.getHobby() != null){
+            this.setHobby(personDto.getHobby());
+        }
+        if(personDto.getBloodType() != null){
+            this.setBloodType(personDto.getBloodType());
+        }
+        if(personDto.getAddress()!= null){
+            this.setAddress(personDto.getAddress());
+        }
+        if(personDto.getJob() != null){
+            this.setJob(personDto.getJob());
+        }
+        if(personDto.getPhoneNumber() != null){
+            this.setPhoneNumber(personDto.getPhoneNumber());
+        }
+    }
 }

@@ -1,7 +1,9 @@
 package com.study.jpastudy.service;
 
+import com.study.jpastudy.controller.dto.PersonDto;
 import com.study.jpastudy.domain.Block;
 import com.study.jpastudy.domain.Person;
+import com.study.jpastudy.domain.dto.Birthday;
 import com.study.jpastudy.repository.BlockRepository;
 import com.study.jpastudy.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +42,25 @@ public class PersonService {
     }
     @Transactional
     public void put(Person person){
+        personRepository.save(person);
+    }
+    @Transactional
+    public void modify(Long id, PersonDto personDto){
+        Person person = personRepository.findById(id).orElseThrow(()->new RuntimeException("아이디가 존재하지않습니다."));
+
+        if(!person.getNamesa().equals(personDto.getNamesa())){
+                throw new RuntimeException("이름이 다릅니다.");
+        }
+        person.set(personDto);
+
+        personRepository.save(person);
+    }
+    @Transactional
+    public void modify(Long id, String name){
+        Person person = personRepository.findById(id).orElseThrow(()->new RuntimeException("아이디가 존재하지않습니다."));
+
+        person.setNamesa(name);
+
         personRepository.save(person);
     }
 }
