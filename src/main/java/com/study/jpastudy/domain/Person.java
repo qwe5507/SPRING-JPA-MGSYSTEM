@@ -19,6 +19,7 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 @Data
 @Where(clause = "deleted = false")
+@Access(AccessType.FIELD)
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,9 +29,7 @@ public class Person {
     @NotEmpty
     @Column(nullable = false)
     private String namesa;
-    @NonNull
-    @Min(1)
-    private int age;
+
     private String hobby;
     @NonNull
     @NotEmpty
@@ -51,9 +50,6 @@ public class Person {
     private boolean deleted;
 
     public void set(PersonDto personDto){
-        if(personDto.getAge() != 0){
-            this.setAge(personDto.getAge());
-        }
         if(personDto.getHobby() != null){
             this.setHobby(personDto.getHobby());
         }
@@ -68,6 +64,23 @@ public class Person {
         }
         if(personDto.getPhoneNumber() != null){
             this.setPhoneNumber(personDto.getPhoneNumber());
+        }
+    }
+    public Integer getAge(){
+        if(this.birthday != null){
+            return LocalDate.now().getYear() - this.birthday.getYearOfBirthday()+1;
+        }else{
+            return null;
+        }
+
+    }
+
+    public boolean isBirthdayToday(){
+        if(this.birthday != null) {
+            return LocalDate.now().equals(LocalDate.of(this.birthday.getYearOfBirthday(), this.birthday.getMonthOfBirthday(),
+                    this.birthday.getDayOfBirthday()));
+        }else {
+            return false;
         }
     }
 }

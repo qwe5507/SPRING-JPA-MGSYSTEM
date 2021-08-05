@@ -7,7 +7,6 @@ import java.time.LocalDate;
 @Data
 public class PersonDto {
     private String namesa;
-    private int age;
     private String hobby;
     private String bloodType;
     private String address;
