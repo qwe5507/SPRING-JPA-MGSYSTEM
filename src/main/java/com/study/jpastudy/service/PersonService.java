@@ -34,6 +34,7 @@ public class PersonService {
     public void put(Person person){
         personRepository.save(person);
     }
+
     @Transactional
     public void modify(Long id, PersonDto personDto){
         Person person = personRepository.findById(id).orElseThrow(()->new RuntimeException("아이디가 존재하지않습니다."));
