@@ -10,7 +10,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface PersonRepository extends JpaRepository<Person,Long> {
+public interface
+PersonRepository extends JpaRepository<Person,Long> {
     List<Person> findByNamesa(String name);
 //    List<Person> findByBlockIsNull();
 

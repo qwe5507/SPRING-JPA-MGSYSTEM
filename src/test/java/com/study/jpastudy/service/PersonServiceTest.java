@@ -1,75 +1,62 @@
 package com.study.jpastudy.service;
 
 import com.study.jpastudy.domain.Person;
+import com.study.jpastudy.domain.dto.Birthday;
 import com.study.jpastudy.repository.PersonRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 @SpringBootTest
 class PersonServiceTest {
     @Autowired
-    private PersonService personService;
-    @Autowired
     private PersonRepository personRepository;
 
     @Test
-    void getPeopleByName(){
-        List<Person> result = personService.getPeopleByName("martin");
+    void findByName(){
+        List<Person> people = personRepository.findByNamesa("tony");
+        assertThat(people.size()).isEqualTo(1);
 
-        assertThat(result.size()).isEqualTo(1);
-        assertThat(result.get(0).getNamesa()).isEqualTo("martin");
+        Person person = people.get(0);
+        assertAll(
+                ()->assertThat(person.getNamesa()).isEqualTo("tony") ,
+                ()->assertThat(person.getHobby()).isEqualTo("reading") ,
+                ()->assertThat(person.getAddress()).isEqualTo("서울") ,
+                ()->assertThat(person.getBirthday()).isEqualTo(Birthday.of(LocalDate.of(1992,7,10))) ,
+                ()->assertThat(person.getJob()).isEqualTo("officer") ,
+                ()->assertThat(person.getPhoneNumber()).isEqualTo("010-2222-5555"),
+                ()->assertThat(person.isDeleted()).isEqualTo(false)
+        );
     }
     @Test
-    void getPerson(){
-        Person person = personService.getPerson(3L);
-
-        assertThat(person.getNamesa()).isEqualTo("dennis");
+    void findByNameIfDeleted(){
+        List<Person> people = personRepository.findByNamesa("andrew");
+        assertThat(people.size()).isEqualTo(0);
     }
+    @Test
+    void findByMonthOfBirthday(){
+        List<Person> people = personRepository.findByMonthOfBirthday(8);
 
-//    @Test //테스트용도 였기때문에 삭제
-//    void cascadeTest(){
-//            givenPeople();
-//
-//            List<Person> result = personRepository.findAll();
-//            result.forEach(System.out::println);
-//
-//            Person person = result.get(3);
-//            person.getBlock().setStartDate(LocalDate.now());
-//            person.getBlock().setEndDate(LocalDate.now());
-//
-//            personRepository.save(person);
-//            personRepository.findAll().forEach(System.out::println);
-//
-////            personRepository.delete(person);
-////            personRepository.findAll().forEach(System.out::println);
-////            blockRepository.findAll().forEach(System.out::println);
-//
-//        person.setBlock(null);
-//        personRepository.save(person);
-//        personRepository.findAll().forEach(System.out::println);
-//        blockRepository.findAll().forEach(System.out::println);
-//    }
+        assertThat(people.size()).isEqualTo(2);
 
+        assertAll(
+                ()->assertThat(people.get(0).getNamesa()).isEqualTo("martin") ,
+                ()->assertThat(people.get(1).getNamesa()).isEqualTo("sophia")
+        );
+    }
+    @Test
+    void findPeopleDeleted(){
+        List<Person> people = personRepository.findPeopleDeleted();
 
-//    private void givenBlockPerson(String name,int age,String bloodType){
-//        Person blockPerson = new Person(name,age,bloodType);
-//        blockPerson.setBlock(new Block(name));
-//
-//        personRepository.save(blockPerson);
-//    }
-//    private void givenPeople() {
-//        givenPerson("martin",10,"A");
-//        givenPerson("david",9,"B");
-//        givenBlockPerson("dennis",7,"O");
-//        givenBlockPerson("martin",11,"AB");
-//    }
-//    private void givenPerson(String name, int age, String bloodType) {
-//        personRepository.save(new Person(name,age,bloodType));
-//    }
+        assertThat(people.size()).isEqualTo(1);
+        assertThat(people.get(0).getNamesa()).isEqualTo("andrew");
+
+    }
 
 }

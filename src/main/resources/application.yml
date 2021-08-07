@@ -4,6 +4,9 @@ spring:
       enabled: true
   jpa:
     show-sql: true
+  datasource:
+    sql-script-encoding: UTF-8
+
 #    defer-datasource-initialization: true
 #    database-platform: org.hibernate.dialect.H2Dialect
 #    hibernate:
