@@ -1,61 +1,37 @@
 package com.study.jpastudy.service;
 
 import com.study.jpastudy.domain.Person;
-import com.study.jpastudy.domain.dto.Birthday;
 import com.study.jpastudy.repository.PersonRepository;
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.mockito.Mockito.when;
 
-@SpringBootTest
+
+@ExtendWith(MockitoExtension.class)
 class PersonServiceTest {
-    @Autowired
+    @InjectMocks
+    private PersonService personService;
+    @Mock
     private PersonRepository personRepository;
 
     @Test
-    void findByName(){
-        List<Person> people = personRepository.findByNamesa("tony");
-        assertThat(people.size()).isEqualTo(1);
+    void getPeopleByName(){
+        when(personRepository.findByNamesa("martin"))
+                .thenReturn(Lists.newArrayList(new Person("martin")));
 
-        Person person = people.get(0);
-        assertAll(
-                ()->assertThat(person.getNamesa()).isEqualTo("tony") ,
-                ()->assertThat(person.getHobby()).isEqualTo("reading") ,
-                ()->assertThat(person.getAddress()).isEqualTo("서울") ,
-                ()->assertThat(person.getBirthday()).isEqualTo(Birthday.of(LocalDate.of(1992,7,10))) ,
-                ()->assertThat(person.getJob()).isEqualTo("officer") ,
-                ()->assertThat(person.getPhoneNumber()).isEqualTo("010-2222-5555"),
-                ()->assertThat(person.isDeleted()).isEqualTo(false)
-        );
-    }
-    @Test
-    void findByNameIfDeleted(){
-        List<Person> people = personRepository.findByNamesa("andrew");
-        assertThat(people.size()).isEqualTo(0);
-    }
-    @Test
-    void findByMonthOfBirthday(){
-        List<Person> people = personRepository.findByMonthOfBirthday(8);
+        List<Person> result  = personService.getPeopleByName("martin");
 
-        assertThat(people.size()).isEqualTo(2);
-
-        assertAll(
-                ()->assertThat(people.get(0).getNamesa()).isEqualTo("martin") ,
-                ()->assertThat(people.get(1).getNamesa()).isEqualTo("sophia")
-        );
-    }
-    @Test
-    void findPeopleDeleted(){
-        List<Person> people = personRepository.findPeopleDeleted();
-
-        assertThat(people.size()).isEqualTo(1);
-        assertThat(people.get(0).getNamesa()).isEqualTo("andrew");
+        assertThat(result.size()).isEqualTo(1);
+        assertThat(result.get(0).getNamesa()).isEqualTo("martin");
 
     }
 

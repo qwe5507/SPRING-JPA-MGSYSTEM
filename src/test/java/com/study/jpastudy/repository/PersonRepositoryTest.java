@@ -22,51 +22,43 @@ class PersonRepositoryTest {
     private PersonRepository personRepository;
 
     @Test
-    void crud(){
-        Person person = new Person();
-//        person.setAge(10);
-        person.setNamesa("john");
+    void findByName(){
+        List<Person> people = personRepository.findByNamesa("tony");
+        assertThat(people.size()).isEqualTo(1);
 
-        personRepository.save(person);
+        Person person = people.get(0);
+        assertAll(
+                ()->assertThat(person.getNamesa()).isEqualTo("tony") ,
+                ()->assertThat(person.getHobby()).isEqualTo("reading") ,
+                ()->assertThat(person.getAddress()).isEqualTo("서울") ,
+                ()->assertThat(person.getBirthday()).isEqualTo(Birthday.of(LocalDate.of(1992,7,10))) ,
+                ()->assertThat(person.getJob()).isEqualTo("officer") ,
+                ()->assertThat(person.getPhoneNumber()).isEqualTo("010-2222-5555"),
+                ()->assertThat(person.isDeleted()).isEqualTo(false)
+        );
+    }
+    @Test
+    void findByNameIfDeleted(){
+        List<Person> people = personRepository.findByNamesa("andrew");
+        assertThat(people.size()).isEqualTo(0);
+    }
+    @Test
+    void findByMonthOfBirthday(){
+        List<Person> people = personRepository.findByMonthOfBirthday(8);
 
-        List<Person> people = personRepository.findByNamesa("martin");
+        assertThat(people.size()).isEqualTo(2);
+
+        assertAll(
+                ()->assertThat(people.get(0).getNamesa()).isEqualTo("martin") ,
+                ()->assertThat(people.get(1).getNamesa()).isEqualTo("sophia")
+        );
+    }
+    @Test
+    void findPeopleDeleted(){
+        List<Person> people = personRepository.findPeopleDeleted();
 
         assertThat(people.size()).isEqualTo(1);
-        assertThat(people.get(0).getNamesa()).isEqualTo("martin");
-//        assertThat(people.get(0).getAge()).isEqualTo(10);
-
-        System.out.println(personRepository.findAll());
-    }
-    @Test
-    void constructorTest(){
-        Person person = new Person("이진현");
-    }
-//    @Test
-//    void hashCodeAndEquals(){
-//        Person person1 = new Person("이진강",28,"A");
-//        Person person2 = new Person("이진강",28,"A");
-//
-//        System.out.println(person1.equals(person2));
-//        System.out.println(person1.hashCode());
-//        System.out.println(person2.hashCode());
-//        Map<Person,Integer> map = new HashMap<>();
-//        map.put(person1,person1.getAge());
-//
-//        System.out.println(map);
-//        System.out.println(map.get(person2));
-//    }
-    @Test
-    void findByBirthdayBetween(){
-
-        List<Person> result = personRepository.findByMonthOfBirthday(8);
-
-        Person martin = new Person();
-        martin.getAge();
-        martin.isBirthdayToday();
-
-        assertThat(result.size()).isEqualTo(2);
-        assertThat(result.get(0).getNamesa()).isEqualTo("martin");
-        assertThat(result.get(1).getNamesa()).isEqualTo("sophia");
+        assertThat(people.get(0).getNamesa()).isEqualTo("andrew");
 
     }
 }
