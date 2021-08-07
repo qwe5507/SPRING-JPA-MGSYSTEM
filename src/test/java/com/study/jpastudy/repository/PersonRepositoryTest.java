@@ -26,7 +26,6 @@ class PersonRepositoryTest {
         Person person = new Person();
 //        person.setAge(10);
         person.setNamesa("john");
-        person.setBloodType("A");
 
         personRepository.save(person);
 
@@ -35,13 +34,12 @@ class PersonRepositoryTest {
         assertThat(people.size()).isEqualTo(1);
         assertThat(people.get(0).getNamesa()).isEqualTo("martin");
 //        assertThat(people.get(0).getAge()).isEqualTo(10);
-        assertThat(people.get(0).getBloodType()).isEqualTo("A");
 
         System.out.println(personRepository.findAll());
     }
     @Test
     void constructorTest(){
-        Person person = new Person("이진현","A");
+        Person person = new Person("이진현");
     }
 //    @Test
 //    void hashCodeAndEquals(){
@@ -57,14 +55,6 @@ class PersonRepositoryTest {
 //        System.out.println(map);
 //        System.out.println(map.get(person2));
 //    }
-    @Test
-    void findByBloodType(){
-        List<Person> result = personRepository.findByBloodType("A");
-
-        assertThat(result.size()).isEqualTo(2);
-        assertThat(result.get(0).getNamesa()).isEqualTo("martin");
-        assertThat(result.get(1).getNamesa()).isEqualTo("benny");
-    }
     @Test
     void findByBirthdayBetween(){
 

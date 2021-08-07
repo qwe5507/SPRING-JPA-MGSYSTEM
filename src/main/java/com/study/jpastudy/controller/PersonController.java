@@ -36,8 +36,8 @@ public class PersonController {
     }
 
     @PatchMapping("{id}")
-    public void modifyPerson(@PathVariable Long id,String name){
-        personService.modify(id,name); //modify오버로딩 작성
+    public void modifyPerson(@PathVariable Long id,String namesa){
+        personService.modify(id,namesa); //modify오버로딩 작성
 
         log.info("person -> {}" , personRepository.findAll());
     }

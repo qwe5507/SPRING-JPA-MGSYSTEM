@@ -8,7 +8,6 @@ import java.time.LocalDate;
 public class PersonDto {
     private String namesa;
     private String hobby;
-    private String bloodType;
     private String address;
     private LocalDate birthday;
     private String job;

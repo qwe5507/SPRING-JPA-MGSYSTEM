@@ -19,7 +19,7 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 @Data
 @Where(clause = "deleted = false")
-@Access(AccessType.FIELD)
+@Access(AccessType.FIELD) // get,is같은변수명이 안써져서
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,20 +31,20 @@ public class Person {
     private String namesa;
 
     private String hobby;
-    @NonNull
-    @NotEmpty
-    @Column(nullable = false)
-    private String bloodType;
+
     private String address;
     @Valid
     @Embedded
     private Birthday birthday;
+
     private String job;
-    @ToString.Exclude
+
+//    @ToString.Exclude
     private String phoneNumber;
-    @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
-    @ToString.Exclude
-    private Block block;
+
+//    @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
+//    @ToString.Exclude
+//    private Block block;
 
     @ColumnDefault("0")
     private boolean deleted;
@@ -52,9 +52,6 @@ public class Person {
     public void set(PersonDto personDto){
         if(personDto.getHobby() != null){
             this.setHobby(personDto.getHobby());
-        }
-        if(personDto.getBloodType() != null){
-            this.setBloodType(personDto.getBloodType());
         }
         if(personDto.getAddress()!= null){
             this.setAddress(personDto.getAddress());
@@ -64,6 +61,9 @@ public class Person {
         }
         if(personDto.getPhoneNumber() != null){
             this.setPhoneNumber(personDto.getPhoneNumber());
+        }
+        if(personDto.getBirthday() != null){
+            this.setBirthday(Birthday.of(personDto.getBirthday()));
         }
     }
     public Integer getAge(){

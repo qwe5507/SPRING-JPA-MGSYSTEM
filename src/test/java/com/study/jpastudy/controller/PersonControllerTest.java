@@ -45,7 +45,7 @@ class PersonControllerTest {
                 MockMvcRequestBuilders.post("/api/person")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content("{\n" +
-                                "    \"namesa\" : \"martin2\", \"age\" : 20, \"bloodType\" : \"A\"\n" +
+                                "    \"namesa\" : \"martin2\", \"age\" : 20\n" +
                                 "}") )
                 .andDo(print())
                 .andExpect(status().isCreated());
@@ -57,7 +57,7 @@ class PersonControllerTest {
                 MockMvcRequestBuilders.put("/api/person/1")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content("{\n" +
-                                "    \"namesa\" : \"martin\", \"age\" : 20, \"bloodType\" : \"A\"\n" +
+                                "    \"namesa\" : \"martin\", \"age\" : 20\n" +
                                 "}") )
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -66,7 +66,7 @@ class PersonControllerTest {
     void modifyName() throws Exception{
         mockMvc.perform(
                 MockMvcRequestBuilders.patch("/api/person/1")
-                        .param("name","martin22"))
+                        .param("namesa","martin22"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
