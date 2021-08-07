@@ -31,7 +31,10 @@ public class PersonService {
         return personRepository.findByNamesa(name);
     }
     @Transactional
-    public void put(Person person){
+    public void put(PersonDto personDto){
+        Person person = new Person();
+        person.set(personDto);
+        person.setNamesa(personDto.getNamesa());
         personRepository.save(person);
     }
 

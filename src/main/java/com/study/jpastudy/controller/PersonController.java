@@ -22,11 +22,13 @@ public class PersonController {
     public Person getPerson(@PathVariable Long id ){
         return personService.getPerson(id);
     }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void postPerson(@RequestBody Person person){
-        personService.put(person);
+    public void postPerson(@RequestBody PersonDto personDto){
+        personService.put(personDto);
     }
+
     @PutMapping("{id}")
     public void modifyPerson(@PathVariable Long id,@RequestBody PersonDto personDto){
         personService.modify(id,personDto);
