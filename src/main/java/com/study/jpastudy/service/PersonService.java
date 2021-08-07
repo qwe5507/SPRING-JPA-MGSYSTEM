@@ -16,6 +16,12 @@ public class PersonService {
     @Autowired
     PersonRepository personRepository;
 
+    public List<Person> getPeopleByName(String name) {
+//        List<Person> people = personRepository.findAll();
+//        return people.stream().filter(person -> person.getName().equals(name)).collect(Collectors.toList());
+
+        return personRepository.findByNamesa(name);
+    }
     @Transactional(readOnly = true)
     public Person getPerson(Long id ){
         Person person = personRepository.findById(id).orElse(null);
@@ -23,13 +29,7 @@ public class PersonService {
         return person;
     }
 
-    public List<Person> getPeopleByName(String name) {
-//        List<Person> people = personRepository.findAll();
-//
-//        return people.stream().filter(person -> person.getName().equals(name)).collect(Collectors.toList());
 
-        return personRepository.findByNamesa(name);
-    }
     @Transactional
     public void put(PersonDto personDto){
         Person person = new Person();
