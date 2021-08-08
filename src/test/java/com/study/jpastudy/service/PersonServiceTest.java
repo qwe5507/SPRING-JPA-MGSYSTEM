@@ -3,6 +3,8 @@ package com.study.jpastudy.service;
 import com.study.jpastudy.controller.dto.PersonDto;
 import com.study.jpastudy.domain.Person;
 import com.study.jpastudy.domain.dto.Birthday;
+import com.study.jpastudy.exception.PersonNotFoundException;
+import com.study.jpastudy.exception.RenameNotPermittedException;
 import com.study.jpastudy.repository.PersonRepository;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
@@ -79,14 +81,14 @@ class PersonServiceTest {
         when(personRepository.findById(1L))
                 .thenReturn(Optional.empty());
 
-        assertThrows(RuntimeException.class,() -> personService.modify(1L, mockPersonDto()));
+        assertThrows(PersonNotFoundException.class,() -> personService.modify(1L, mockPersonDto()));
     }
     @Test
     void modifyIfNameIsDiffrent(){
         when(personRepository.findById(1L))
                 .thenReturn(Optional.of(new Person("tony"))); //이름이달라야하기때문에 martin과 다르게
 
-        assertThrows(RuntimeException.class,()-> personService.modify(1L, mockPersonDto())) ;
+        assertThrows(RenameNotPermittedException.class,()-> personService.modify(1L, mockPersonDto())) ;
 
     }
     @Test
@@ -104,7 +106,7 @@ class PersonServiceTest {
     void modifyByNameIfPersonNotFound(){
         when(personRepository.findById(1L))
                 .thenReturn(Optional.empty());
-        assertThrows(RuntimeException.class,()->personService.modify(1L, "daniel"));
+        assertThrows(PersonNotFoundException.class,()->personService.modify(1L, "daniel"));
 
     }
     @Test
@@ -120,7 +122,7 @@ class PersonServiceTest {
     void deleteIfPersonNotFound(){
         when(personRepository.findById(1L))
                 .thenReturn(Optional.empty());
-        assertThrows(RuntimeException.class,()->personService.delete(1L));
+        assertThrows(PersonNotFoundException.class,()->personService.delete(1L));
     }
     @Test
     void delete(){
