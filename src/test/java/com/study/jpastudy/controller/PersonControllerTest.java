@@ -97,9 +97,37 @@ class PersonControllerTest {
                 MockMvcRequestBuilders.post("/api/person")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(toJsonString(dto)) )
-                .andExpect(status().isInternalServerError())
-                .andExpect(jsonPath("$.code").value(500))
-                .andExpect(jsonPath("$.message").value("알수없는 서버 오류가 발생하였습니다."));
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value(400))
+                .andExpect(jsonPath("$.message").value("이름은 필수 값입니다."));
+
+    }
+    @Test
+    void postPersonIfNameIsEmpty()throws Exception{
+        PersonDto dto = new PersonDto();
+        dto.setNamesa("");
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.post("/api/person")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(toJsonString(dto)) )
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value(400))
+                .andExpect(jsonPath("$.message").value("이름은 필수 값입니다."));
+
+    }
+    @Test
+    void postPersonIfNameIsBlankString() throws Exception{
+        PersonDto dto = new PersonDto();
+        dto.setNamesa(" ");
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.post("/api/person")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(toJsonString(dto)) )
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value(400))
+                .andExpect(jsonPath("$.message").value("이름은 필수 값입니다."));
 
     }
 
