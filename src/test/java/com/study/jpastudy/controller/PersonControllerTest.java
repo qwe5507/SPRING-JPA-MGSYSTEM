@@ -55,6 +55,13 @@ class PersonControllerTest {
                 .build();
     }
     @Test
+    void getAllBirthdayFriends() throws Exception{
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/api/person/birthday-friends"))
+                .andExpect(status().isOk());  //isOK 는 200응답의미
+
+    }
+    @Test
     void getAll() throws Exception{
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/api/person")

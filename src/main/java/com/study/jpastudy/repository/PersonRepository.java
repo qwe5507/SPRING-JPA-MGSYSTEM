@@ -23,4 +23,8 @@ PersonRepository extends JpaRepository<Person,Long> {
 
     @Query(value = "select * from Person person where person.deleted = true",nativeQuery = true)
     List<Person> findPeopleDeleted();
+
+    @Query(value = "select person from Person person where (person.birthday.monthOfBirthday = :monthOfBirthdayss and person.birthday.dayOfBirthday = :dayOfBirthday)" +
+            "   or (person.birthday.monthOfBirthday = :monthOfBirthdayss and person.birthday.dayOfBirthday = :dayOfBirthday-1)")
+    List<Person> getBirthdayFriends(@Param("monthOfBirthdayss") int monthOfBirthday,@Param("dayOfBirthday") int dayOfBirthday);
 }

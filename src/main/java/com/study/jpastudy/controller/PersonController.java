@@ -33,6 +33,11 @@ public class PersonController {
         return personService.getAll(pageable);
     }
 
+    @GetMapping("/birthday-friends")
+    public List<Person> getBirthdayFriends(){
+        return personService.getBirthdayFriends();
+    }
+
     @GetMapping("{id}")
     public Person getPerson(@PathVariable Long id ){
         return personService.getPerson(id);
