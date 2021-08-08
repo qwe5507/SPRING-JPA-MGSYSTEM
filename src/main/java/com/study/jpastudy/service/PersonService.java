@@ -47,6 +47,7 @@ public class PersonService {
         }
         person.set(personDto);
 
+        System.out.println(person);
         personRepository.save(person);
     }
     @Transactional
