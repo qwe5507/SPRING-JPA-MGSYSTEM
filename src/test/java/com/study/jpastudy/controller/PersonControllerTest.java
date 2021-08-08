@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.study.jpastudy.controller.dto.PersonDto;
 import com.study.jpastudy.domain.Person;
 import com.study.jpastudy.domain.dto.Birthday;
+import com.study.jpastudy.exception.handler.GlobalExceptionHandler;
 import com.study.jpastudy.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,6 +21,7 @@ import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.util.NestedServletException;
 
 import java.time.LocalDate;
@@ -42,13 +44,12 @@ class PersonControllerTest {
     @Autowired
     ObjectMapper objectMapper;
     @Autowired
-    private MappingJackson2HttpMessageConverter messageConverter;
+    WebApplicationContext wac;
 
     @BeforeEach
     void beforeEach(){
         mockMvc = MockMvcBuilders
-                .standaloneSetup(personController)
-                .setMessageConverters(messageConverter)
+                .webAppContextSetup(wac)
                 .alwaysDo(print())
                 .build();
     }
@@ -103,29 +104,29 @@ class PersonControllerTest {
     }
 
 
-    @Test
-    void modifyPerson() throws Exception{
-        PersonDto dto = PersonDto.of("martin","programming","판교",LocalDate.now(),"programmer","010-2755-4444");
-
-        mockMvc.perform(
-                MockMvcRequestBuilders.put("/api/person/1")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(toJsonString(dto)) )
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.code").value(400))
-                .andExpect(jsonPath("$.message").value("이름을 변경 허용하지 않습니다."));
-
-        Person result = personRepository.findById(1L).get();
-
-        assertAll(
-                () ->  assertThat(result.getNamesa()).isEqualTo("martin"),
-                ()-> assertThat(result.getHobby()).isEqualTo("programming"),
-                ()-> assertThat(result.getAddress()).isEqualTo("판교"),
-                ()->assertThat(result.getBirthday()).isEqualTo(Birthday.of(LocalDate.now())) ,
-                ()-> assertThat(result.getJob()).isEqualTo("programmer"),
-                ()->assertThat(result.getPhoneNumber()).isEqualTo("010-2755-4444")
-                );
-    }
+//    @Test
+//    void modifyPerson() throws Exception{
+//        PersonDto dto = PersonDto.of("martin","programming","판교",LocalDate.now(),"programmer","010-2755-4444");
+//
+//        mockMvc.perform(
+//                MockMvcRequestBuilders.put("/api/person/1")
+//                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+//                        .content(toJsonString(dto)) )
+//                .andExpect(status().isBadRequest())
+//                .andExpect(jsonPath("$.code").value(400))
+//                .andExpect(jsonPath("$.message").value("이름을 변경 허용하지 않습니다."));
+//
+//        Person result = personRepository.findById(1L).get();
+//
+//        assertAll(
+//                () ->  assertThat(result.getNamesa()).isEqualTo("martin"),
+//                ()-> assertThat(result.getHobby()).isEqualTo("programming"),
+//                ()-> assertThat(result.getAddress()).isEqualTo("판교"),
+//                ()->assertThat(result.getBirthday()).isEqualTo(Birthday.of(LocalDate.now())) ,
+//                ()-> assertThat(result.getJob()).isEqualTo("programmer"),
+//                ()->assertThat(result.getPhoneNumber()).isEqualTo("010-2755-4444")
+//                );
+//    }
 
     @Test
     void modifyPersonIfNameIsDifferent() throws Exception{
