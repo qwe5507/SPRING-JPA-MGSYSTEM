@@ -71,8 +71,8 @@ class PersonControllerTest {
                 .andExpect(jsonPath("$.totalPages").value(3))
                 .andExpect(jsonPath("$.totalElements").value(6))
                 .andExpect(jsonPath("$.numberOfElements").value(2))
-                .andExpect(jsonPath("$.content.[0].name").value("dennis"))
-                .andExpect(jsonPath("$.content.[1].name").value("sophia"));
+                .andExpect(jsonPath("$.content.[0].namesa").value("dennis"))
+                .andExpect(jsonPath("$.content.[1].namesa").value("sophia"));
 
     }
     @Test
@@ -83,7 +83,7 @@ class PersonControllerTest {
                 .andExpect(jsonPath("$.namesa").value("martin"))
                 .andExpect(jsonPath("$.hobby").isEmpty())
                 .andExpect(jsonPath("$.address").isEmpty())
-                .andExpect(jsonPath("$.birthday").value("1991-08-15"))
+                .andExpect(jsonPath("$.birthday").value("1991-08-07"))
                 .andExpect(jsonPath("$.job").isEmpty())
                 .andExpect(jsonPath("$.phoneNumber").isEmpty())
                 .andExpect(jsonPath("$.deleted").value(false))
