@@ -47,18 +47,18 @@ public class PersonService {
         personRepository.save(person);
     }
 
-//    @Transactional
-//    public void modify(Long id, PersonDto personDto){
-//        Person person = personRepository.findById(id).orElseThrow(()->new PersonNotFoundException());
-//
-//        if(!person.getNamesa().equals(personDto.getNamesa())){
-//                throw new RenameNotPermittedException();
-//        }
-//        person.set(personDto);
-//
-//        System.out.println(person);
-//        personRepository.save(person);
-//    }
+    @Transactional
+    public void modify(Long id, PersonDto personDto){
+        Person person = personRepository.findById(id).orElseThrow(()->new PersonNotFoundException());
+
+        if(!person.getNamesa().equals(personDto.getNamesa())){
+                throw new RenameNotPermittedException();
+        }
+        person.set(personDto);
+
+        System.out.println(person);
+        personRepository.save(person);
+    }
     @Transactional
     public void modify(Long id, String name){
         Person person = personRepository.findById(id).orElseThrow(()->new PersonNotFoundException( ));
