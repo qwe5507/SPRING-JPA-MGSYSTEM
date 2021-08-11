@@ -78,10 +78,14 @@ public class PersonService {
 
 
     public List<Person> getBirthdayFriends() {
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.of(2021,8,31);
                 int month = today.getMonthValue();
                 int day = today.getDayOfMonth();
-        List<Person> personList =  personRepository.getBirthdayFriends(month,day);
+        LocalDate  yesterday = today.minusDays(1);
+                int yesterdayMonth = yesterday.getMonthValue();
+                int yesterdayDay = yesterday.getDayOfMonth();
+
+        List<Person> personList =  personRepository.getBirthdayFriends(month,day,yesterdayMonth,yesterdayDay);
         return personList;
     }
 }
