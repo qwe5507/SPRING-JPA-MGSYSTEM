@@ -117,7 +117,7 @@ class PersonControllerTest {
 
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/api/person")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE   )
                         .content(toJsonString(dto)) )
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code").value(400))
