@@ -18,7 +18,7 @@ public class ErrorResponse {
         return new ErrorResponse(httpStatus.value(),message);
     }
     public static ErrorResponse of(HttpStatus httpStatus, FieldError fieldError){
-        if(fieldError != null){
+        if(fieldError == null){
             return new ErrorResponse(httpStatus.value(),"invaild params");
         }else{
             return new ErrorResponse(httpStatus.value(),fieldError.getDefaultMessage());
