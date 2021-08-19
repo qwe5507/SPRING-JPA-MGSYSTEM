@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.util.NestedServletException;
 
 import java.time.LocalDate;
@@ -51,6 +52,7 @@ class PersonControllerTest {
     void beforeEach(){
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(wac)
+                .addFilters(new CharacterEncodingFilter("UTF-8", true))
                 .alwaysDo(print())
                 .build();
     }
