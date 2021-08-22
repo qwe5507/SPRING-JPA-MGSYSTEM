@@ -1,6 +1,5 @@
 package com.study.jpastudy.domain;
 
-import antlr.StringUtils;
 import com.study.jpastudy.controller.dto.PersonDto;
 import com.study.jpastudy.domain.dto.Birthday;
 import lombok.*;
@@ -9,7 +8,6 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
@@ -19,6 +17,7 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 @Data
 @Where(clause = "deleted = false")
+@ToString(exclude = {"group"})
 @Access(AccessType.FIELD) // get,is같은변수명이 안써져서
 public class Person {
     @Id
@@ -41,6 +40,9 @@ public class Person {
 
 //    @ToString.Exclude
     private String phoneNumber;
+
+    @ManyToOne
+    private Group group;
 
 //    @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
 //    @ToString.Exclude
