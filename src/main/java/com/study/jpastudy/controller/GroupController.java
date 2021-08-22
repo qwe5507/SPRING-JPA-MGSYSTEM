@@ -16,7 +16,7 @@ public class GroupController {
     GroupService groupService;
 
     @GetMapping
-    public List<Group> groupList(){
+    public List<Group> getAll(){
         return groupService.getAll();
     }
 }
