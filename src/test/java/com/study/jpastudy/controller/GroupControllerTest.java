@@ -13,6 +13,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @SpringBootTest
@@ -35,6 +36,12 @@ public class GroupControllerTest {
     @Test
     void getAll(){
         List<Group> groupList = groupController.getAll();
+        assertThat(groupList.size()).isEqualTo(1);
     }
 
+    @Test
+    void GetGroupById(){
+        Group group = groupController.getGroup(1L);
+        assertThat(group.getDecsript()).isEqualTo("첫번째 그룹");
+    }
 }
