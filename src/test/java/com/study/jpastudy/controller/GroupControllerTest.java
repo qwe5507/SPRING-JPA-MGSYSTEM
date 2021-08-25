@@ -34,14 +34,17 @@ public class GroupControllerTest {
                 .build();
     }
     @Test
-    void getAll(){
+    public void getAll(){
         List<Group> groupList = groupController.getAll();
         assertThat(groupList.size()).isEqualTo(1);
     }
 
     @Test
-    void GetGroupById(){
+    public void GetGroupById(){
         Group group = groupController.getGroup(1L);
-        assertThat(group.getDecsript()).isEqualTo("첫번째 그룹");
+        assertThat(group.getDescription()).isEqualTo("첫번째 그룹");
     }
+//    @Test
+//    public void postGroup
+
 }

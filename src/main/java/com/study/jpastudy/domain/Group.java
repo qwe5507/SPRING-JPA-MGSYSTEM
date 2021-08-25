@@ -16,7 +16,7 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String decsript;
+    private String description;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "group")
     private List<Person> personList;

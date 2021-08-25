@@ -1,12 +1,11 @@
 package com.study.jpastudy.controller;
 
+import com.study.jpastudy.controller.dto.GroupDto;
 import com.study.jpastudy.domain.Group;
 import com.study.jpastudy.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +22,10 @@ public class GroupController {
     @GetMapping("/{id}")
     public Group getGroup(@PathVariable Long id){
         return groupService.getGroupById(id);
+    }
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public void postGroup(@RequestBody GroupDto groupDto){
+
     }
 }
