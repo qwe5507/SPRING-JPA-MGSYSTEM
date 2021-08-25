@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
@@ -15,6 +16,8 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @Transactional
@@ -34,9 +37,13 @@ public class GroupControllerTest {
                 .build();
     }
     @Test
-    public void getAll(){
-        List<Group> groupList = groupController.getAll();
-        assertThat(groupList.size()).isEqualTo(1);
+    public void getAll() throws Exception{
+//        List<Group> groupList = groupController.getAll();
+//        assertThat(groupList.size()).isEqualTo(1);
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/api/group"))
+                .andExpect(status().isOk())  //isOK 는 200응답의미
+                .andExpect(jsonPath("$.size").value(0));
     }
 
     @Test
