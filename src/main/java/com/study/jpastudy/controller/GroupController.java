@@ -31,4 +31,9 @@ public class GroupController {
         groupService.postGroup(group);
 
     }
+    @PatchMapping("/{id}")
+    public void modifyGroup(@PathVariable(name = "id") Long id,String description){
+        groupService.modifyGroup(id,description);
+    }
+
 }

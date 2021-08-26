@@ -24,4 +24,10 @@ public class GroupService {
         return groupRepository.save(group);
 
     }
+    public void modifyGroup(Long id, String description) {
+        Group group = groupRepository.findById(id).get();
+        group.setDescription(description);
+        Group newGroup = groupRepository.save(group);
+
+    }
 }
