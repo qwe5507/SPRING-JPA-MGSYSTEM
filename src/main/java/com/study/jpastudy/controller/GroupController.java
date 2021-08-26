@@ -26,6 +26,9 @@ public class GroupController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void postGroup(@RequestBody GroupDto groupDto){
+        Group group = new Group();
+        group.setDescription(groupDto.getDescription());
+        groupService.postGroup(group);
 
     }
 }
