@@ -40,5 +40,8 @@ public class GroupController {
     public List<Person> getPeopleInGroup(@PathVariable Long id){
         return groupService.getPeopleInGroup(id);
     }
-
+    @PutMapping("{id}/people/{personId}")
+    public void putPersonInGroup(@PathVariable Long id,@PathVariable Long personId){
+        groupService.putPersonInGroup(id, personId);
+    }
 }
