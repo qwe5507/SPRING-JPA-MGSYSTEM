@@ -2,6 +2,7 @@ package com.study.jpastudy.controller;
 
 import com.study.jpastudy.controller.dto.GroupDto;
 import com.study.jpastudy.domain.Group;
+import com.study.jpastudy.domain.Person;
 import com.study.jpastudy.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,10 @@ public class GroupController {
     @PatchMapping("/{id}")
     public void modifyGroup(@PathVariable(name = "id") Long id,String description){
         groupService.modifyGroup(id,description);
+    }
+    @GetMapping("/{id}/people")
+    public List<Person> getPeopleInGroup(@PathVariable Long id){
+        return groupService.getPeopleInGroup(id);
     }
 
 }

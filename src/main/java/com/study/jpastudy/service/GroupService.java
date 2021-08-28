@@ -1,6 +1,7 @@
 package com.study.jpastudy.service;
 
 import com.study.jpastudy.domain.Group;
+import com.study.jpastudy.domain.Person;
 import com.study.jpastudy.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,8 @@ public class GroupService {
         group.setDescription(description);
         Group newGroup = groupRepository.save(group);
 
+    }
+    public List<Person> getPeopleInGroup(Long id) {
+          return groupRepository.findById(id).get().getPersonList();
     }
 }
